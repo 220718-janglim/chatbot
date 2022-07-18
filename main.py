@@ -1,7 +1,7 @@
 #-*- coding: utf-8 -*-
 import pandas as pd
-
-chatbot_data = pd.read_excel("C:/Users/USER/PycharmProjects/chatbot_data.xlsx")
+data_link = "C:/Users/USER/PycharmProjects/chatbot_data.xlsx"
+chatbot_data = pd.read_excel(data_link)
 
 # rule의 데이터를 split하여 list형태로 변환 후, index값과 함께 dictionary 형태로 저장
 chat_dic = {}
@@ -10,6 +10,10 @@ for rule in chatbot_data['rule']:
     chat_dic[row] = rule.split('|')
     row += 1
 
+def write():
+    xlsx = pd.read_excel(data_link)
+    xlsx.to_excel(data_link,index=False)
+    xlsx.to_csv(data_link,index=False)
 
 def chat(request):
     for k, v in chat_dic.items():
@@ -37,5 +41,10 @@ while True:
     req = input('대화를 입력해보세요.')
     if req == 'exit':
         break
+    if req == 'write':
+        write()
+        break
     else:
         print('jarvis : ', chat(req))
+
+
