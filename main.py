@@ -1,7 +1,9 @@
 #-*- coding: utf-8 -*-
+from openpyxl import workbook
 import pandas as pd
 data_link = "C:/Users/USER/PycharmProjects/chatbot_data.xlsx"
 chatbot_data = pd.read_excel(data_link)
+
 
 # rule의 데이터를 split하여 list형태로 변환 후, index값과 함께 dictionary 형태로 저장
 chat_dic = {}
@@ -11,6 +13,11 @@ for rule in chatbot_data['rule']:
     row += 1
 
 def write():
+    pos = row+1                    #엑셀 시트 상 위치 설정
+    write_wb = workbook()
+    write_ws = write_wb.active
+    write_ws.cell(pos, 1, data_question)      #질문 삽입
+    write_ws.cell(pos, 3, data_answer)      #답변 삽입
     xlsx = pd.read_excel(data_link)
     xlsx.to_excel(data_link,index=False)
     xlsx.to_csv(data_link,index=False)
@@ -42,6 +49,8 @@ while True:
     if req == 'exit':
         break
     if req == 'write':
+        data_question = input("질문을 입력해주세요: ")
+        data_answer = input("답변을 입력하세요")
         write()
         break
     else:
