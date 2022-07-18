@@ -14,9 +14,11 @@ for rule in chatbot_data['rule']:
 
 def write():
     pos = row+1                    #엑셀 시트 상 위치 설정
+    data_rule = data_question.split('|')
     write_wb = workbook()
     write_ws = write_wb.active
     write_ws.cell(pos, 1, data_question)      #질문 삽입
+    write_ws.cell(pos, 2, data_rule)         #질문을 rule에 따라 변경하여 삽입
     write_ws.cell(pos, 3, data_answer)      #답변 삽입
     xlsx = pd.read_excel(data_link)
     xlsx.to_excel(data_link,index=False)
@@ -52,7 +54,7 @@ while True:
         data_question = input("질문을 입력해주세요: ")
         data_answer = input("답변을 입력하세요")
         write()
-        break
+        chat()
     else:
         print('jarvis : ', chat(req))
 
