@@ -38,4 +38,4 @@ while True:
     if req == 'exit':
         break
     else:
-        print('jarvis : ', chat(req))
+        print('janglim : ', chat(req))
