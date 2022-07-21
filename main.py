@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
-import openpyxl
-from openpyxl import Workbook
-import pandas as pd
 
-data_link = "C:/Users/USER/PycharmProjects/chatbot_data.xlsx"
+import pandas as pd
+import gdown
+
+url = "https://docs.google.com/spreadsheets/d/1aHxeicgyq-Tqk9x-TDQRxtIstPqrg26H/edit?usp=sharing&ouid=115050007552031694145&rtpof=true&sd=true"
+gdown.download(url=url, output='chatbot_data.xlsx', quiet=True, fuzzy=True)
+
+
+data_link = "C:\\Users\\coolw\\PycharmProjects\\pythonProject4\\chatbot_data.xlsx"
 chatbot_data = pd.read_excel(data_link)
 
 # rule의 데이터를 split하여 list형태로 변환 후, index값과 함께 dictionary 형태로 저장
@@ -12,19 +16,7 @@ row = 0
 for rule in chatbot_data['rule']:
     chat_dic[row] = rule.split('|')
     row += 1
-print(row)
-
-def write():
-    pos = row + 1  # 엑셀 시트 상 위치 설정
-    data_rule = data_question.split('|')
-    write_wb = Workbook()
-    write_ws = write_wb.active
-    write_ws.cell(pos, 1, data_question)  # 질문 삽입
-    write_ws.cell(pos, 2, data_rule)  # 질문을 rule에 따라 변경하여 삽입
-    write_ws.cell(pos, 3, data_answer)  # 답변 삽입
-    xlsx = pd.read_excel(data_link)
-    xlsx.to_excel(data_link, index=False)
-    xlsx.to_csv(data_link, index=False)
+print(chat_dic)
 
 
 def chat(request):
@@ -53,12 +45,8 @@ while True:
     req = input('대화를 입력해보세요: ')
     if req == "exit":
         break
-    if req == "write":
-        data_question = input("질문을 입력해주세요: ")
-        data_answer = input("답변을 입력하세요: ")
-        write()
+
 
     else:
-        print('jarvis : ', chat(req))
-
+        print('janglim : ', chat(req))
 
